@@ -1,0 +1,8 @@
+2021-06-30 update 내용
+
+* 테스트를 위한 GUI Console 생성
+
+* Access_key 와 Secret_key를 이용한 잔고 조회기능
+
+* 기존에 main에 있던 GUI 관련 부분을 window.py라는 파일로 분리
+
