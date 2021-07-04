@@ -1,8 +1,12 @@
+###### Import_part ######
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import pyupbit
+import functions
+import tools
 
 
+###### Update part ######
 updates = open("updates.txt","r",encoding='UTF8')
 updates_str = ""
 while True:
@@ -12,17 +16,40 @@ while True:
     updates_str = updates_str + text
 updates.close()
 
-form_class = uic.loadUiType("gui.ui")[0]
+####### Form_initialize_part ########
+loginwindow_form = uic.loadUiType("login.ui")[0]
+mainwindow_form = uic.loadUiType("gui.ui")[0]
 
-class WindowClass(QMainWindow, form_class):
+###### WindowClass_Initialize #######
+class LoginWindow(QWidget, loginwindow_form):
+    def __init__(self):
+        super().__init__()
+
+        self.setupUi(self)
+        self.show()
+        self.btn_login.clicked.connect(self.btn_login_action)
+
+    def btn_login_action(self):
+        global ACCESS_KEY
+        global SECRET_KEY
+        response =""
+
+        ACCESS_KEY = str(self.textEdit_accessKey.toPlainText())
+        SECRET_KEY = str(self.textEdit_secretKey.toPlainText())
+        print ("ACCESS_KEY = " + ACCESS_KEY)
+        print ("SECRET_KEY = " + SECRET_KEY)
+
+class WindowClass(QMainWindow, mainwindow_form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.show()
         self.textEdit_console.setText(updates_str)
         self.btn_bitcoinPrice.clicked.connect(self.btn_bitcoinPrice_action)
         self.btn_login.clicked.connect(self.btn_login_action)
         self.btn_balance.clicked.connect(self.btn_balance_action)
         self.btn_update.clicked.connect(self.btn_update_action)
+
     def btn_bitcoinPrice_action(self):
         txt = str(pyupbit.get_current_price("KRW-BTC")) + "₩"
         self.textEdit_console.setText(txt)
@@ -35,6 +62,8 @@ class WindowClass(QMainWindow, form_class):
         print ("ACCESS_KEY = " + ACCESS_KEY)
         print ("SECRET_KEY = " + SECRET_KEY)
         self.textEdit_console.setText("ACCESS_KEY = " + ACCESS_KEY +"\n"+ "SECRET_KEY = " + SECRET_KEY)
+
+        # ! KEY 값이 유효한지 확인하는 파트 추가해야함 !
 
     def btn_balance_action(self):
         global myAccount

@@ -6,3 +6,6 @@
 
 * 기존에 main에 있던 GUI 관련 부분을 window.py라는 파일로 분리
 
+
+2021-07-04 update 내용
+* login gui 추가(미완)

@@ -4,7 +4,9 @@ import window
 
 app = QApplication(sys.argv)
 mainWindow = window.WindowClass()
-mainWindow.show()
+loginWindow = window.LoginWindow()
+#mainWindow.hide()
+#loginWindow.show()
 app.exec_()
 
 
