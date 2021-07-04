@@ -2,9 +2,10 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import pyupbit
+import sys
 import functions
 import tools
-
+LOGIN_STATUS = 0
 
 ###### Update part ######
 updates = open("updates.txt","r",encoding='UTF8')
@@ -38,15 +39,16 @@ class LoginWindow(QWidget, loginwindow_form):
         SECRET_KEY = str(self.textEdit_secretKey.toPlainText())
         print ("ACCESS_KEY = " + ACCESS_KEY)
         print ("SECRET_KEY = " + SECRET_KEY)
+        mainWindow.show()
+        self.hide
 
 class WindowClass(QMainWindow, mainwindow_form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.show()
+        self.hide()
         self.textEdit_console.setText(updates_str)
         self.btn_bitcoinPrice.clicked.connect(self.btn_bitcoinPrice_action)
-        self.btn_login.clicked.connect(self.btn_login_action)
         self.btn_balance.clicked.connect(self.btn_balance_action)
         self.btn_update.clicked.connect(self.btn_update_action)
 
@@ -73,3 +75,12 @@ class WindowClass(QMainWindow, mainwindow_form):
 
     def btn_update_action(self):
         self.textEdit_console.setText(updates_str)
+##########################
+app = QApplication(sys.argv)
+mainWindow = WindowClass()
+loginWindow = LoginWindow()
+#mainWindow.hide()
+#loginWindow.show()
+app.exec_()
+
+##########################
