@@ -14,6 +14,7 @@ def isStatusOK(statusCode):
     if 200 <= statusCode < 400:
         return True
     else:
+        print("REQUEST FAILED!")
         return False
 def get_MyOrderByUuid(input_uuid): # Query Parma: uuid
     query = {
@@ -70,3 +71,19 @@ def order_limitType(ticker,price,volume):
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
     return res.json()
+
+def get_myBalance():
+    payload = {
+        'access_key': access_key,
+        'nonce': str(uuid.uuid4()),
+    }
+
+    jwt_token = jwt.encode(payload, secret_key)
+    authorize_token = 'Bearer {}'.format(jwt_token)
+    headers = {"Authorization": authorize_token}
+
+    res = requests.get(server_url + "/v1/accounts", headers=headers)
+    get_statusCode(res)
+
+    print(res.json())
+    return res.json

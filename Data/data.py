@@ -1,5 +1,5 @@
 import datetime #파일 저장시 시간정보도 함께 저장하기 위해서 사용
-from tools import p
+from Modules.tools import p
 max_size_of_uuids = 2  # uuids 리스트의 최대 크기(가변)
 uuids = [""] * max_size_of_uuids  # 매도,매수 주문에 대한 uuid를 저장하는 list
 size_of_uuids = 0 # UUID loads size
@@ -58,6 +58,6 @@ def resize_uuids():
 def save_uuidsToTxtFile():
     # uuids를 인덱스 순서대로 file에 저장해주는 함수
     now = datetime.datetime.now()
-    f = open ('uuids.txt','a+',encoding = 'UTF8')
+    f = open ('uuids.txt', 'a+', encoding ='UTF8')
     for i in range (size_of_uuids):
         f.write(f"{now}>> {i}. uuids[{i}]: {uuids[i]}\n")

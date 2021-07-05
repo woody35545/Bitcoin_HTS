@@ -3,12 +3,14 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import pyupbit
 import sys
-import functions
-import tools
+from Modules import functions, tools
+from Modules.tools import p
+from Data import data as db
 LOGIN_STATUS = 0
-
+access_key = ""
+secret_key = ""
 ###### Update part ######
-updates = open("updates.txt", "r", encoding='UTF8')
+updates = open("Data/updates.txt", "r", encoding='UTF8')
 updates_str = ""
 while True:
     text = updates.readline()
@@ -31,47 +33,59 @@ class LoginWindow(QWidget, loginwindow_form):
         self.btn_login.clicked.connect(self.btn_login_action)
 
     def btn_login_action(self):
-        global ACCESS_KEY
-        global SECRET_KEY
-        response =""
 
-        ACCESS_KEY = str(self.textEdit_accessKey.toPlainText())
-        SECRET_KEY = str(self.textEdit_secretKey.toPlainText())
-        print ("ACCESS_KEY = " + ACCESS_KEY)
-        print ("SECRET_KEY = " + SECRET_KEY)
-        mainWindow.show()
-        self.hide
+        response = ""
+        access_key = str(self.lineEdit_accessKey.text())
+        secret_key = str(self.lineEdit_secretKey.text())
+        reply=  QMessageBox.question(self, 'Message', '해당 정보로 로그인 하시겠습니까?',
+                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.No:
+            None
 
+        elif reply == QMessageBox.Yes and (ACCESS_KEY != "") :
+
+            print("ACCESS_KEY = " + access_key)
+            print("SECRET_KEY = " + secret_key)
+            mainWindow.show()
+            self.hide
+        else:
+            QMessageBox.question(self, 'Message', '옳바른 키값이 아닙니다.',QMessageBox.Yes)
 class WindowClass(QMainWindow, mainwindow_form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.hide()
+        #self.lineEdit_accessKey= QLineEdit()
+        #self.lineEdit_accessKey.setEchoMode(QLineEdit.Password)
+
         self.textEdit_console.setText(updates_str)
         self.btn_bitcoinPrice.clicked.connect(self.btn_bitcoinPrice_action)
         self.btn_balance.clicked.connect(self.btn_balance_action)
         self.btn_update.clicked.connect(self.btn_update_action)
+        self.lineEdit.returnPressed.connect(self.lineEdit_returnPressed_action)
+
 
     def btn_bitcoinPrice_action(self):
         txt = str(pyupbit.get_current_price("KRW-BTC")) + "₩"
         self.textEdit_console.setText(txt)
+    def lineEdit_returnPressed_action(self):
+        # 커맨드를 입력하기 위한 lineEdit 컴포넌트
+        bringText = self.lineEdit.text()
+        self.textEdit_console.append(str("> ")+str(bringText))
+       # self.textEdit_console.moveCursor(QtGui.QTextCursor.End) # 자동 스크롤 내림 기능 구현중 ..
 
-    def btn_login_action(self):
-        global ACCESS_KEY
-        global SECRET_KEY
-        ACCESS_KEY = str(self.textEdit_accessKey.toPlainText())
-        SECRET_KEY = str(self.textEdit_secretKey.toPlainText())
-        print ("ACCESS_KEY = " + ACCESS_KEY)
-        print ("SECRET_KEY = " + SECRET_KEY)
-        self.textEdit_console.setText("ACCESS_KEY = " + ACCESS_KEY +"\n"+ "SECRET_KEY = " + SECRET_KEY)
+        self.lineEdit.setText("")
 
-        # ! KEY 값이 유효한지 확인하는 파트 추가해야함 !
 
     def btn_balance_action(self):
         global myAccount
         myAccount = pyupbit.Upbit(ACCESS_KEY,SECRET_KEY)
         self.textEdit_console.setText(str(myAccount.get_balances()))
-        print(myAccount.get_balances())
+
+        res = myAccount.get_balances()
+        if(res['error']['name'] == str("invalid_access_key")):
+            print ("잘못된 키값입니다.")
+        #print(res['error']['name'])
 
     def btn_update_action(self):
         self.textEdit_console.setText(updates_str)
