@@ -18,8 +18,8 @@ while True:
 updates.close()
 
 ####### Form_initialize_part ########
-loginwindow_form = uic.loadUiType("login.ui")[0]
-mainwindow_form = uic.loadUiType("gui.ui")[0]
+loginwindow_form = uic.loadUiType("UI/login.ui")[0]
+mainwindow_form = uic.loadUiType("UI/gui.ui")[0]
 
 ###### WindowClass_Initialize #######
 class LoginWindow(QWidget, loginwindow_form):

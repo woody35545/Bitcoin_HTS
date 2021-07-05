@@ -1,12 +1,13 @@
 import sys
 from PyQt5.QtWidgets import *
 import window
-import data
-
+from data import uuids_dataIn
+import data as db
+from tools import p
 #TESTING
 
 
 for i in  range (5):
-    data.uuids_dataIn(f"data[{i}]")
-    print(f"{data.get_uuid(i)}")
-data.save_uuidsToTxtFile()
+    uuids_dataIn(f"data[{i}]")
+    p(f"{db.get_uuid(i)}")
+    db.save_uuidsToTxtFile()
