@@ -4,8 +4,9 @@ import uuid
 import hashlib
 from urllib.parse import urlencode
 import requests
-access_key = ""
-secret_key = ""
+import data
+access_key = data.access_key
+secret_key = data.secret_key
 server_url = "https://api.upbit.com"
 
 def get_MyOrderByUuid(input_uuid): # Query Parma: uuid
@@ -31,4 +32,6 @@ def get_MyOrderByUuid(input_uuid): # Query Parma: uuid
     res = requests.get(server_url + "/v1/order", params=query, headers=headers)
 
     print(res.json())
+    return res.json
+
 
