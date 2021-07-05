@@ -36,7 +36,7 @@ def uuids_dataIn(input_uuid):
     global uuids
     if get_sizeOfUuids() == max_size_of_uuids:
         resize_uuids()
-        p("resize")
+        #p("resize")
     uuids[size_of_uuids] = str(input_uuid)
     set_sizeOfUuids(size_of_uuids+1)
     return uuids[size_of_uuids-1]

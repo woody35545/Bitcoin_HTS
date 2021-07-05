@@ -6,11 +6,22 @@ def gmf_textEdit_setText(gui_commponent_name,inputstr):
 
 def p(arg):
     print(arg)
-def listp (list):
+def listp (list,listname):
     for i in range (len(list)):
-        return None
+        p(f"{listname}[{i}]: {list[i]}")
 
 
 
 def 텍스트대체(old_text, text_to_change):
     return None
+
+def get_fileContents(filename):
+    f = open(filename,'r', encoding = 'UTF8')
+    res_str = ""
+    buffer = ""
+    while True:
+        buffer = f.readline()
+        if not buffer:
+            break
+        res_str += buffer
+    return res_str
