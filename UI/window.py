@@ -8,7 +8,7 @@ import tools
 LOGIN_STATUS = 0
 
 ###### Update part ######
-updates = open("updates.txt","r",encoding='UTF8')
+updates = open("updates.txt", "r", encoding='UTF8')
 updates_str = ""
 while True:
     text = updates.readline()

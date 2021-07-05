@@ -8,7 +8,13 @@ import requests
 access_key = data.access_key
 secret_key = data.secret_key
 server_url = "https://api.upbit.com"
-
+def get_statusCode(response):
+    return response.status_code
+def isStatusOK(statusCode):
+    if 200 <= statusCode < 400:
+        return True
+    else:
+        return False
 def get_MyOrderByUuid(input_uuid): # Query Parma: uuid
     query = {
         'uuid': input_uuid,
@@ -32,6 +38,7 @@ def get_MyOrderByUuid(input_uuid): # Query Parma: uuid
     res = requests.get(server_url + "/v1/order", params=query, headers=headers)
 
     print(res.json())
+    get_statusCode(res)
     return res.json
 
 def order_limitType(ticker,price,volume):
