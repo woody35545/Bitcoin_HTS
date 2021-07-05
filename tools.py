@@ -6,6 +6,11 @@ def gmf_textEdit_setText(gui_commponent_name,inputstr):
 
 def p(arg):
     print(arg)
+def listp (list):
+    for i in range (len(list)):
+        return None
+
+
 
 def 텍스트대체(old_text, text_to_change):
     return None

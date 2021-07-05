@@ -1,5 +1,5 @@
 import datetime #파일 저장시 시간정보도 함께 저장하기 위해서 사용
-
+from tools import p
 max_size_of_uuids = 2  # uuids 리스트의 최대 크기(가변)
 uuids = [""] * max_size_of_uuids  # 매도,매수 주문에 대한 uuid를 저장하는 list
 size_of_uuids = 0 # UUID loads size
@@ -36,7 +36,7 @@ def uuids_dataIn(input_uuid):
     global uuids
     if get_sizeOfUuids() == max_size_of_uuids:
         resize_uuids()
-        print("resize")
+        p("resize")
     uuids[size_of_uuids] = str(input_uuid)
     set_sizeOfUuids(size_of_uuids+1)
     return uuids[size_of_uuids-1]
