@@ -1,4 +1,5 @@
 import datetime #파일 저장시 시간정보도 함께 저장하기 위해서 사용
+import openpyxl
 from Modules.tools import p
 max_size_of_uuids = 2  # uuids 리스트의 최대 크기(가변)
 uuids = [""] * max_size_of_uuids  # 매도,매수 주문에 대한 uuid를 저장하는 list
@@ -61,3 +62,6 @@ def save_uuidsToTxtFile():
     f = open ('uuids.txt', 'a+', encoding ='UTF8')
     for i in range (size_of_uuids):
         f.write(f"{now}>> {i}. uuids[{i}]: {uuids[i]}\n")
+
+def save_toExcel():
+    return None

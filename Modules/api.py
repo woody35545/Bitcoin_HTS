@@ -5,9 +5,14 @@ import hashlib
 from urllib.parse import urlencode
 import requests
 
-access_key = data.access_key
-secret_key = data.secret_key
+access_key = ""
+secret_key = ""#main.getSecretKey()
 server_url = "https://api.upbit.com"
+def set_keys(akey,skey):
+    global access_key
+    access_key = akey
+    global secret_key
+    secret_key = skey
 def get_statusCode(response):
     return response.status_code
 def isStatusOK(statusCode):
@@ -87,3 +92,21 @@ def get_myBalance():
 
     print(res.json())
     return res.json
+def get_CandleData_Minute(ticker):
+    url = "https://api.upbit.com/v1/candles/minutes/1"
+    querystring = {"market": ticker, "count": "1"}
+    headers = {"Accept": "application/json"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
+    print(response.text)
+    return response
+def get_coin_current_data():
+
+    url = "https://api.upbit.com/v1/ticker"
+    headers = {"Accept": "application/json"}
+    query= {
+        "markets":"KRW-XRP"
+    }
+    response = requests.request("GET", url, headers=headers, params = query)
+    #print(response.text)
+    return response
