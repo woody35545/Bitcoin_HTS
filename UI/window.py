@@ -31,7 +31,6 @@ class WindowClass(QMainWindow, mainwindow_form):
         self.btn_balance.clicked.connect(self.btn_balance_action)
         self.btn_update.clicked.connect(self.btn_update_action)
         self.lineEdit.returnPressed.connect(self.lineEdit_returnPressed_action)
-
     def btn_bitcoinPrice_action(self):
         txt = str(pyupbit.get_current_price("KRW-BTC")) + "₩"
         self.textEdit_console.setText(txt)
@@ -52,7 +51,6 @@ class WindowClass(QMainWindow, mainwindow_form):
 ##########################
 app = QApplication(sys.argv)
 mainWindow = WindowClass()
-
 app.exec_()
 
 ##########################
