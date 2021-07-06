@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1124</width>
-    <height>767</height>
+    <width>434</width>
+    <height>369</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>220</y>
-      <width>151</width>
+      <width>201</width>
       <height>41</height>
      </rect>
     </property>
@@ -32,7 +32,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>401</width>
+      <width>411</width>
       <height>141</height>
      </rect>
     </property>
@@ -58,7 +58,7 @@
      <rect>
       <x>10</x>
       <y>270</y>
-      <width>151</width>
+      <width>201</width>
       <height>41</height>
      </rect>
     </property>
@@ -69,9 +69,9 @@
    <widget class="QPushButton" name="btn_update">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>380</y>
-      <width>151</width>
+      <x>220</x>
+      <y>270</y>
+      <width>201</width>
       <height>41</height>
      </rect>
     </property>
@@ -82,14 +82,14 @@
    <widget class="QPushButton" name="btn_bitcoinPrice_2">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>220</x>
       <y>220</y>
-      <width>151</width>
+      <width>201</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>자동매매시작</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -97,7 +97,7 @@
      <rect>
       <x>10</x>
       <y>180</y>
-      <width>401</width>
+      <width>411</width>
       <height>21</height>
      </rect>
     </property>
@@ -111,8 +111,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1124</width>
-     <height>21</height>
+     <width>434</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

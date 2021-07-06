@@ -1,14 +1,37 @@
 ###### Import_part ######
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+from PyQt5.QtCore import *
 import pyupbit
 import sys
+from Modules import trading
+import threading
+console_command = ""
+
+
+
 LOGIN_STATUS = 0
 ACCESS_KEY = ""
 SECRET_KEY = ""
 ###### Update part ######
 updates = open("../Data/updates.txt", "r", encoding='UTF8')
 updates_str = ""
+
+###
+class testQThr(QThread):
+    timeout = pyqtSignal(int)  # 사용자 정의 시그널
+
+    def __init__(self):
+        super().__init__()
+        self.num = 0  # 초깃값 설정
+
+    def run(self):
+        self.textEdit_console.setText("gi")
+
+
+###
+
+
 while True:
     text = updates.readline()
     if not text:
@@ -22,6 +45,7 @@ mainwindow_form = uic.loadUiType("../UI/gui.ui")[0]
 ###### WindowClass_Initialize #######
 
 class WindowClass(QMainWindow, mainwindow_form):
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -34,11 +58,19 @@ class WindowClass(QMainWindow, mainwindow_form):
     def btn_bitcoinPrice_action(self):
         txt = str(pyupbit.get_current_price("KRW-BTC")) + "₩"
         self.textEdit_console.setText(txt)
+
+
     def lineEdit_returnPressed_action(self):
         # 커맨드를 입력하기 위한 lineEdit 컴포넌트
+
         bringText = self.lineEdit.text()
         self.textEdit_console.append(str("> ")+str(bringText))
         self.lineEdit.setText("")
+        global  console_command
+        console_command = str(bringText)
+        self.thr1.start()
+
+
     def btn_balance_action(self):
         global myAccount
         myAccount = pyupbit.Upbit(ACCESS_KEY,SECRET_KEY)
@@ -48,9 +80,14 @@ class WindowClass(QMainWindow, mainwindow_form):
             print ("잘못된 키값입니다.")
     def btn_update_action(self):
         self.textEdit_console.setText(updates_str)
+
+
+
+
 ##########################
-app = QApplication(sys.argv)
-mainWindow = WindowClass()
-app.exec_()
+
+#app = QApplication(sys.argv)
+#mainWindow = WindowClass()
+#app.exec_()
 
 ##########################
