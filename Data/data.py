@@ -12,23 +12,18 @@ def get_uuid(index):
     # > input: 가져올 인덱스 값
     # > output: uuid (type=str)
     return str(uuids[index]) #혹시라서 Wrapper로 감싸줌
-
 def get_sizeOfUuids():
     return size_of_uuids
-
 def get_maxSizeOfUuids():
     return max_size_of_uuids
-
 def set_sizeOfUuids(size):
     global size_of_uuids
     size_of_uuids = size
     return size_of_uuids
-
 def set_maxSizeOfUuids(size):
     global max_size_of_uuids
     max_size_of_uuids = size
     return max_size_of_uuids
-
 def uuids_dataIn(input_uuid):
     # uuids에 데이터를 넣는 함수
     # > input = uuid 값
@@ -55,13 +50,11 @@ def resize_uuids():
     uuids = res_list
     set_maxSizeOfUuids(new_maxSizeOfUuids)
     return uuids
-
 def save_uuidsToTxtFile():
     # uuids를 인덱스 순서대로 file에 저장해주는 함수
     now = datetime.datetime.now()
     f = open ('uuids.txt', 'a+', encoding ='UTF8')
     for i in range (size_of_uuids):
         f.write(f"{now}>> {i}. uuids[{i}]: {uuids[i]}\n")
-
 def save_toExcel():
     return None

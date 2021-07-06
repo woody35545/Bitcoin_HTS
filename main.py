@@ -17,8 +17,8 @@ trademode = True
 targetPrice = 0
 show = 1
 #Test
-#exel1 = openpyxl.Workbook()
-#sheet1 = exel1.active
+exel1 = openpyxl.Workbook()
+sheet1 = exel1.active
 #sheet1['A1'] = "A1"
 #exel1.save("Data/data.xlsx")
 
@@ -42,20 +42,35 @@ class thr_trade_vbos (threading.Thread):
 class thr_test (threading.Thread):
     def run(self):
         test()
-
 def test():
-     i=0
+     i= 1
+     buffer = [""] * 10
+     buffer_size = 0
+     buffer_max_size = 10
+     sum=0
      while True:
-
         if show == 1:
             a = api.get_coin_current_data().json()
-
-            print("["+str(i)+"]"+str(a[0]['trade_price']))
+            print_str = str("[" + str(i) + "]" + str(a[0]['trade_price']))
+            price = int(a[0]['trade_price'])
+            '''if buffer_max_size == buffer_max_size:
+                for k in buffer:
+                    sum += buffer[buffer_size]
+                    buffer_size = 0
+            else:
+                buffer[buffer_size] = int(price)
+                buffer_size += 1'''
+            print(print_str)
+            sheet1.cell(row= i, column= 1).value= get_time_now()
+            sheet1.cell(row= i, column= 2).value = price
             time.sleep(1)
             i += 1
+            exel1.save("data.xlsx")
+            buffer_size += 1
+            sum = 0
+
         else:
             None
-
 def get_targetPrice():
     return targetPrice
 def update_targetPirce(ticker):
@@ -68,7 +83,6 @@ def calculate_target_price (ticker):
     data_range = yesterday_data['high'] -  yesterday_data['low']
     target_price = today_data['open'] + data_range * 0.5
     return target_price
-
 def trade():
     None
 def setAccessKey(data):
@@ -128,7 +142,7 @@ def get_time_now():
     h = str(n.hour)
     m = str(n.minute)
     s = str(int(n.second))
-    return str()
+    return str(h+"시"+m+"분"+s+"초")
 def getAccessKey():
     return access_key
 def getSecretKey():
@@ -208,6 +222,5 @@ def print_console():
             ("Wrong!")
 testing_Thr = thr_test()
 testing_Thr.start()
-
-console = thr_console()
-console.start()
+#console = thr_console()
+#console.start()
